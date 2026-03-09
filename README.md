@@ -22,7 +22,6 @@ A simple Flask API that returns a JSON greeting when you hit the root endpoint. 
 | `main.tf` | Terraform infrastructure code |
 | `variables.tf` | Terraform variables |
 | `outputs.tf` | Terraform outputs |
-| `.github/workflows/ci-cd.yml` | CI/CD pipeline (bonus) |
 
 ---
 
