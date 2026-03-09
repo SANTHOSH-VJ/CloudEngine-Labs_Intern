@@ -1,0 +1,810 @@
+                                                                                                                              ComputerName           : 3.95.55.5                             RemoteAddress          : 3.95.55.5                             RemotePort             : 5000                                  InterfaceAlias         : Wi-Fi                                 SourceAddress          : 10.22.212.187                         
+PingSucceeded          : False
+PingReplyDetails (RTT) : 0 ms
+TcpTestSucceeded       : False
+
+
+
+PS E:\CloudEngineLabs-Intern> terraform destroy -auto-approve; terraform apply -auto-approve
+data.aws_ami.ubuntu: Reading...
+aws_security_group.flask_app_sg: Refreshing state... [id=sg-0b831d8089be51a6e]
+data.aws_ami.ubuntu: Read complete after 2s [id=ami-04680790a315cd58d]
+aws_instance.flask_app: Refreshing state... [id=i-016090c310e3ecbad]
+
+Terraform used the selected providers to generate the
+following execution plan. Resource actions are indicated with  
+the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_instance.flask_app will be destroyed
+  - resource "aws_instance" "flask_app" {
+      - ami                                  = "ami-04680790a315cd58d" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:051826704878:instance/i-016090c310e3ecbad" -> null      
+      - associate_public_ip_address          = true -> null    
+      - availability_zone                    = "us-east-1c" -> null
+      - cpu_core_count                       = 1 -> null       
+      - cpu_threads_per_core                 = 1 -> null       
+      - disable_api_stop                     = false -> null   
+      - disable_api_termination              = false -> null   
+      - ebs_optimized                        = false -> null   
+      - get_password_data                    = false -> null   
+      - hibernation                          = false -> null   
+      - id                                   = "i-016090c310e3ecbad" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null  
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t2.micro" -> null
+      - ipv6_address_count                   = 0 -> null       
+      - ipv6_addresses                       = [] -> null      
+      - monitoring                           = false -> null   
+      - placement_partition_number           = 0 -> null       
+      - primary_network_interface_id         = "eni-0c2f2b99b79d788e1" -> null
+      - private_dns                          = "ip-172-31-25-155.ec2.internal" -> null
+      - private_ip                           = "172.31.25.155" -> null
+      - public_dns                           = "ec2-3-95-55-5.compute-1.amazonaws.com" -> null
+      - public_ip                            = "3.95.55.5" -> null
+      - secondary_private_ips                = [] -> null      
+      - security_groups                      = [
+          - "flask-app-security-group",
+        ] -> null
+      - source_dest_check                    = true -> null    
+      - subnet_id                            = "subnet-04012288fd9137aa3" -> null
+      - tags                                 = {
+          - "Name"    = "flask-app-server"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - tags_all                             = {
+          - "Name"    = "flask-app-server"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "1063532173286a76a90ed9b09ad6289010fa78e5" -> null
+      - user_data_replace_on_change          = false -> null   
+      - vpc_security_group_ids               = [
+          - "sg-0b831d8089be51a6e",
+        ] -> null
+        # (8 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null   
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 1 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null    
+          - http_protocol_ipv6          = "disabled" -> null   
+          - http_put_response_hop_limit = 1 -> null
+          - http_tokens                 = "optional" -> null   
+          - instance_metadata_tags      = "disabled" -> null   
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null        
+          - encrypted             = false -> null
+          - iops                  = 100 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 0 -> null
+          - volume_id             = "vol-0972c2a114c82b8d6" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp2" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_security_group.flask_app_sg will be destroyed
+  - resource "aws_security_group" "flask_app_sg" {
+      - arn                    = "arn:aws:ec2:us-east-1:051826704878:security-group/sg-0b831d8089be51a6e" -> null
+      - description            = "Allow SSH and Flask app traffic" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-0b831d8089be51a6e" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "Flask App"
+              - from_port        = 5000
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 5000
+            },
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "SSH"
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+            },
+        ] -> null
+      - name                   = "flask-app-security-group" -> null
+      - owner_id               = "051826704878" -> null        
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Name"    = "flask-app-sg"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - tags_all               = {
+          - "Name"    = "flask-app-sg"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - vpc_id                 = "vpc-07f57e586d4d0a93c" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Changes to Outputs:
+  - flask_app_url       = "http://3.95.55.5:5000/" -> null     
+  - instance_id         = "i-016090c310e3ecbad" -> null        
+  - instance_public_dns = "ec2-3-95-55-5.compute-1.amazonaws.com" -> null
+  - instance_public_ip  = "3.95.55.5" -> null
+aws_instance.flask_app: Destroying... [id=i-016090c310e3ecbad]
+aws_instance.flask_app: Still destroying... [id=i-016090c310e3ecbad, 00m10s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-016090c310e3ecbad, 00m20s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-016090c310e3ecbad, 00m30s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-016090c310e3ecbad, 00m40s elapsed]
+aws_instance.flask_app: Destruction complete after 43s
+aws_security_group.flask_app_sg: Destroying... [id=sg-0b831d8089be51a6e]
+aws_security_group.flask_app_sg: Destruction complete after 2s
+
+Destroy complete! Resources: 2 destroyed.
+data.aws_ami.ubuntu: Reading...
+data.aws_ami.ubuntu: Read complete after 2s [id=ami-04680790a315cd58d]
+
+Terraform used the selected providers to generate the
+following execution plan. Resource actions are indicated with  
+the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.flask_app will be created
+  + resource "aws_instance" "flask_app" {
+      + ami                                  = "ami-04680790a315cd58d"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"      
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name"    = "flask-app-server"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + tags_all                             = {
+          + "Name"    = "flask-app-server"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "d581d6026d312a0e02de8392236c0ec61da8b78b"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply) 
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_security_group.flask_app_sg will be created
+  + resource "aws_security_group" "flask_app_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow SSH and Flask app traffic"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Flask App"
+              + from_port        = 5000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 5000
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "flask-app-security-group"    
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name"    = "flask-app-sg"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + tags_all               = {
+          + "Name"    = "flask-app-sg"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + flask_app_url       = (known after apply)
+  + instance_id         = (known after apply)
+  + instance_public_dns = (known after apply)
+  + instance_public_ip  = (known after apply)
+aws_security_group.flask_app_sg: Creating...
+aws_security_group.flask_app_sg: Creation complete after 5s [id=sg-021f5f3c1890a4a99]
+aws_instance.flask_app: Creating...
+aws_instance.flask_app: Still creating... [00m10s elapsed]
+aws_instance.flask_app: Creation complete after 16s [id=i-0a49dabca79bb4cba]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.    
+
+Outputs:
+
+flask_app_url = "http://54.237.218.20:5000/"
+instance_id = "i-0a49dabca79bb4cba"
+instance_public_dns = "ec2-54-237-218-20.compute-1.amazonaws.com"
+instance_public_ip = "54.237.218.20"
+PS E:\CloudEngineLabs-Intern> terraform output flask_app_url
+"http://54.237.218.20:5000/"
+PS E:\CloudEngineLabs-Intern> Write-Host "Waiting 6 minutes for cloud-config setup..."; Start-Sleep -Seconds 360; curl http://54.237.218.20:5000/
+Waiting 6 minutes for cloud-config setup...
+curl : Unable to connect to the remote server
+At line:1 char:85
++ ...  setup..."; Start-Sleep -Seconds 360; curl
+http://54.237.218.20:5000/
++
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.H  
+   ttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc   
+  eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,M  
+   icrosoft.PowerShell.Commands.InvokeWebRequestCommand        
+
+PS E:\CloudEngineLabs-Intern> aws ec2 get-console-output --instance-id (terraform output -raw instance_id) --query "Output" --output text 2>$null | Select-String -Pattern "cloud-init|docker|runcmd|error|failed" -Context 0,2
+PS E:\CloudEngineLabs-Intern> curl http://54.237.218.20:5000/
+curl : Unable to connect to the remote server
+At line:1 char:1
++ curl http://54.237.218.20:5000/
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.H  
+   ttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc   
+  eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,M  
+   icrosoft.PowerShell.Commands.InvokeWebRequestCommand        
+
+PS E:\CloudEngineLabs-Intern> terraform destroy -auto-approve; terraform apply -auto-approve
+data.aws_ami.ubuntu: Reading...
+aws_security_group.flask_app_sg: Refreshing state... [id=sg-021f5f3c1890a4a99]
+data.aws_ami.ubuntu: Read complete after 2s [id=ami-04680790a315cd58d]
+aws_instance.flask_app: Refreshing state... [id=i-0a49dabca79bb4cba]
+
+Terraform used the selected providers to generate the
+following execution plan. Resource actions are indicated with  
+the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_instance.flask_app will be destroyed
+  - resource "aws_instance" "flask_app" {
+      - ami                                  = "ami-04680790a315cd58d" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:051826704878:instance/i-0a49dabca79bb4cba" -> null      
+      - associate_public_ip_address          = true -> null    
+      - availability_zone                    = "us-east-1c" -> null
+      - cpu_core_count                       = 1 -> null       
+      - cpu_threads_per_core                 = 1 -> null       
+      - disable_api_stop                     = false -> null   
+      - disable_api_termination              = false -> null   
+      - ebs_optimized                        = false -> null   
+      - get_password_data                    = false -> null   
+      - hibernation                          = false -> null   
+      - id                                   = "i-0a49dabca79bb4cba" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null  
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t2.micro" -> null
+      - ipv6_address_count                   = 0 -> null       
+      - ipv6_addresses                       = [] -> null      
+      - monitoring                           = false -> null   
+      - placement_partition_number           = 0 -> null       
+      - primary_network_interface_id         = "eni-0b51a43178337a99e" -> null
+      - private_dns                          = "ip-172-31-19-248.ec2.internal" -> null
+      - private_ip                           = "172.31.19.248" -> null
+      - public_dns                           = "ec2-54-237-218-20.compute-1.amazonaws.com" -> null
+      - public_ip                            = "54.237.218.20" -> null
+      - secondary_private_ips                = [] -> null      
+      - security_groups                      = [
+          - "flask-app-security-group",
+        ] -> null
+      - source_dest_check                    = true -> null    
+      - subnet_id                            = "subnet-04012288fd9137aa3" -> null
+      - tags                                 = {
+          - "Name"    = "flask-app-server"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - tags_all                             = {
+          - "Name"    = "flask-app-server"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "d581d6026d312a0e02de8392236c0ec61da8b78b" -> null
+      - user_data_replace_on_change          = false -> null   
+      - vpc_security_group_ids               = [
+          - "sg-021f5f3c1890a4a99",
+        ] -> null
+        # (8 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null   
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 1 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null    
+          - http_protocol_ipv6          = "disabled" -> null   
+          - http_put_response_hop_limit = 1 -> null
+          - http_tokens                 = "optional" -> null   
+          - instance_metadata_tags      = "disabled" -> null   
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null        
+          - encrypted             = false -> null
+          - iops                  = 100 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 0 -> null
+          - volume_id             = "vol-00a9ad31625601fef" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp2" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_security_group.flask_app_sg will be destroyed
+  - resource "aws_security_group" "flask_app_sg" {
+      - arn                    = "arn:aws:ec2:us-east-1:051826704878:security-group/sg-021f5f3c1890a4a99" -> null
+      - description            = "Allow SSH and Flask app traffic" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-021f5f3c1890a4a99" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "Flask App"
+              - from_port        = 5000
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 5000
+            },
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "SSH"
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+            },
+        ] -> null
+      - name                   = "flask-app-security-group" -> null
+      - owner_id               = "051826704878" -> null        
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Name"    = "flask-app-sg"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - tags_all               = {
+          - "Name"    = "flask-app-sg"
+          - "Project" = "CloudEngineLabs-Assessment"
+        } -> null
+      - vpc_id                 = "vpc-07f57e586d4d0a93c" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Changes to Outputs:
+  - flask_app_url       = "http://54.237.218.20:5000/" -> null 
+  - instance_id         = "i-0a49dabca79bb4cba" -> null        
+  - instance_public_dns = "ec2-54-237-218-20.compute-1.amazonaws.com" -> null
+  - instance_public_ip  = "54.237.218.20" -> null
+aws_instance.flask_app: Destroying... [id=i-0a49dabca79bb4cba]
+aws_instance.flask_app: Still destroying... [id=i-0a49dabca79bb4cba, 00m10s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-0a49dabca79bb4cba, 00m20s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-0a49dabca79bb4cba, 00m30s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-0a49dabca79bb4cba, 00m40s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-0a49dabca79bb4cba, 00m50s elapsed]
+aws_instance.flask_app: Still destroying... [id=i-0a49dabca79bb4cba, 01m00s elapsed]
+aws_instance.flask_app: Destruction complete after 1m5s
+aws_security_group.flask_app_sg: Destroying... [id=sg-021f5f3c1890a4a99]
+aws_security_group.flask_app_sg: Destruction complete after 2s
+
+Destroy complete! Resources: 2 destroyed.
+data.aws_ami.ubuntu: Reading...
+data.aws_ami.ubuntu: Read complete after 1s [id=ami-04680790a315cd58d]
+
+Terraform used the selected providers to generate the
+following execution plan. Resource actions are indicated with  
+the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.flask_app will be created
+  + resource "aws_instance" "flask_app" {
+      + ami                                  = "ami-04680790a315cd58d"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"      
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name"    = "flask-app-server"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + tags_all                             = {
+          + "Name"    = "flask-app-server"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "c0499088d1e239d79855a4dd7650bf874c938523"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply) 
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_security_group.flask_app_sg will be created
+  + resource "aws_security_group" "flask_app_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow SSH and Flask app traffic"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Flask App"
+              + from_port        = 5000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 5000
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "flask-app-security-group"    
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name"    = "flask-app-sg"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + tags_all               = {
+          + "Name"    = "flask-app-sg"
+          + "Project" = "CloudEngineLabs-Assessment"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + flask_app_url       = (known after apply)
+  + instance_id         = (known after apply)
+  + instance_public_dns = (known after apply)
+  + instance_public_ip  = (known after apply)
+aws_security_group.flask_app_sg: Creating...
+aws_security_group.flask_app_sg: Creation complete after 8s [id=sg-082911a7f4174ce1b]
+aws_instance.flask_app: Creating...
+aws_instance.flask_app: Still creating... [00m10s elapsed]
+aws_instance.flask_app: Creation complete after 17s [id=i-02d5a30468b61c396]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.    
+
+Outputs:
+
+flask_app_url = "http://13.222.175.133:5000/"
+instance_id = "i-02d5a30468b61c396"
+instance_public_dns = "ec2-13-222-175-133.compute-1.amazonaws.com"                                                            instance_public_ip = "13.222.175.133"                          PS E:\CloudEngineLabs-Intern> terraform output                 
+flask_app_url = "http://13.222.175.133:5000/"
+instance_id = "i-02d5a30468b61c396"
+instance_public_dns = "ec2-13-222-175-133.compute-1.amazonaws.com"
+instance_public_ip = "13.222.175.133"
+PS E:\CloudEngineLabs-Intern> Write-Host "Waiting 3 minutes..."; Start-Sleep -Seconds 180; curl http://13.222.175.133:5000/
+Waiting 3 minutes...
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"message":"Hello CloudEngine Labs - from  
+                    Python Flask!"}
+
+RawContent        : HTTP/1.1 200 OK
+                    Connection: close
+                    Content-Length: 58
+                    Content-Type: application/json
+                    Date: Mon, 09 Mar 2026 15:57:07 GMT        
+                    Server: Werkzeug/3.1.6 Python/3.10.12      
+
+                    {"message":"Hello CloudEngine Labs...      
+Headers           : {[Connection, close], [Content-Length,
+Headers           : {[Connection, close], [Content-Length,
+                    58], [Content-Type, application/json],
+                    [Date, Mon, 09 Mar 2026 15:57:07 GMT]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 58
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 58
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 58
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 58
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 58
+RawContentLength  : 58
+
+
+
+PS E:\CloudEngineLabs-Intern> Remove-Item "E:\CloudEngineLabs-Intern\README.md"; Rename-Item "E:\CloudEngineLabs-Intern\README_new.md" "README.md"
+PS E:\CloudEngineLabs-Intern>
