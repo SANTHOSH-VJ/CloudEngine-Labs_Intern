@@ -129,3 +129,7 @@ curl http://13.222.175.133:5000/
 It works!
 
 ---
+
+##SCREENSHOTS
+
+https://docs.google.com/document/d/1Orv4WS9-HfdgQeavrUaTfMDu1JkpVqeLwOrFO8wcNtc/edit?usp=sharing
