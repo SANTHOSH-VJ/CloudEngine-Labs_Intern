@@ -1,5 +1,4 @@
 # CloudEngine Labs - Terraform Infrastructure
-# Provisions an AWS EC2 instance with Docker to run the Flask API
 
 terraform {
   required_version = ">= 1.0"
@@ -11,12 +10,10 @@ terraform {
   }
 }
 
-# AWS Provider configuration
 provider "aws" {
   region = var.aws_region
 }
 
-# Get the latest Ubuntu 22.04 AMI
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"] # Canonical
@@ -32,12 +29,10 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-# Security Group allowing SSH and Flask app port
 resource "aws_security_group" "flask_app_sg" {
   name        = "flask-app-security-group"
   description = "Allow SSH and Flask app traffic"
 
-  # SSH access
   ingress {
     description = "SSH"
     from_port   = 22
@@ -46,7 +41,6 @@ resource "aws_security_group" "flask_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Flask app port
   ingress {
     description = "Flask App"
     from_port   = 5000
@@ -55,7 +49,6 @@ resource "aws_security_group" "flask_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow all outbound traffic
   egress {
     from_port   = 0
     to_port     = 0
@@ -69,7 +62,6 @@ resource "aws_security_group" "flask_app_sg" {
   }
 }
 
-# EC2 Instance
 resource "aws_instance" "flask_app" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
